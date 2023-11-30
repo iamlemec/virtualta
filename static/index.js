@@ -1,7 +1,6 @@
 // chat bot interface
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const send = document.querySelector('.entry-box button');
     const input = document.querySelector('.entry-box input');
     const chat = document.querySelector('.chat-box');
 
@@ -62,20 +61,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function handleMessage() {
         let prompt = input.value.trim();
         if (prompt.length > 0) {
-            send.disabled = true;
             input.disabled = true;
             await sendMessage(prompt);
             input.value = '';
             chat.scrollTop = chat.scrollHeight;
-            send.disabled = false;
             input.disabled = false;
         }
     }
-
-    // connect handler
-    send.addEventListener('click', () => {
-        handleMessage();
-    });
 
     // enter handler
     input.addEventListener('keydown', (event) => {
