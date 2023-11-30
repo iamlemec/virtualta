@@ -6,44 +6,67 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('background-image.jpg'); /* Use a suitable background image */
     background-size: cover;
 }
 
 .chat-container {
     width: 60%;
-    max-width: 800px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px); /* This creates the frosted glass effect */
+    height: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat-box {
-    height: 500px;
+    width: 80%;
+    height: 100%;
+    margin: auto;
     overflow-y: auto;
     padding: 20px;
+    padding-bottom: 60px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+ 
+.chat-box::-webkit-scrollbar { 
+    display: none;
 }
 
-.chat-box div {
-    margin-bottom: 10px;
+.chat-box .message div {
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 4px;
-    background-color: #F2F2F2;
-    border: 1px solid #F2F2F2;
+    max-width: 60%;
+    border: 1px solid white;
+    display: inline-block;
+    clear: both;
 }
 
-.chat-box div:hover {
-    border: 1px solid #DDD;
+.chat-box .user div {
+    float: right;
+    background-color: rgb(0, 123, 255, 0.85);
+    border: 1px solid rgb(0, 123, 255, 0.85);
+    color: white;
+}
+
+.chat-box .user div:hover {
+    border: 1px solid #0056b3;
+}
+
+.chat-box .assistant div {
+    float: left;
+    background-color: #EEE;
+    border: 1px solid #EEE;
+}
+
+.chat-box .assistant div:hover {
+    border: 1px solid #CCC;
 }
 
 .entry-box {
     display: flex;
-    padding: 10px;
+    padding-bottom: 60px;
     background-color: rgba(255, 255, 255, 0.8);
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -52,7 +75,7 @@ body {
     font-size: 110%;
     flex-grow: 1;
     padding: 10px;
-    border: 1px solid #CCC;
+    border: 1px solid #333;
     border-radius: 4px;
     margin-right: 10px;
 }
@@ -64,13 +87,26 @@ body {
 .entry-box button {
     font-size: 110%;
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
+    background-color: white;
+    color: #333;
+    border: 1px solid #333;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .entry-box button:hover {
-    background-color: #0056b3;
+    background-color: #CCC;
+}
+
+.entry-box button:disabled {
+    background-color: #EEE;
+    border-color: #EEE;
+    cursor: not-allowed;
+    color: #AAA;
+}
+
+.entry-box input:disabled {
+    background-color: #EEE;
+    border-color: #EEE;
+    color: #AAA;
 }
