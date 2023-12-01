@@ -12,7 +12,10 @@ app = Flask(
 
 # create client
 conf = toml.load('config.toml')
-client = messages.MessageQueue(**conf)
+opts = conf['options']
+clients = {
+    k: messages.MessageQueue(**v, **opts) for k, v in conf['rooms'].items()
+}
 
 # routes
 @app.route('/')
@@ -21,14 +24,30 @@ def home():
 
 @app.route('/list', methods=['POST'])
 def list():
-    print('list')
+    room = request.form['room']
+    print(f'list [{room}]')
+
+    if room not in clients:
+        print(f'room [{room}] not found')
+        return jsonify([])
+    else:
+        client = clients[room]
+
     client.update()
     return jsonify(client.queue)
 
 @app.route('/query', methods=['POST'])
 def query():
+    room = request.form['room']
     prompt = request.form['prompt']
-    print('query:', prompt)
+    print(f'query [{room}]: {prompt}')
+
+    if room not in clients:
+        print(f'room [{room}] not found')
+        return jsonify([])
+    else:
+        client = clients[room]
+
     client.query(prompt, block=True)
     client.update()
     return jsonify(client.queue)

@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const input = document.querySelector('.entry-box input');
     const chat = document.querySelector('.chat-box');
 
+    // get url args
+    let params = new URL(document.location).searchParams;
+    let room = params.get('room');
+
     // add to chat box
     function appendMessage(data) {
         for ([id, role, text] of data) {
@@ -24,6 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         let response = await fetch('/list', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: new URLSearchParams({room}),
         });
 
         // check return status
@@ -43,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         let response = await fetch('/query', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: new URLSearchParams({prompt}),
+            body: new URLSearchParams({room, prompt}),
         });
 
         // check return status
